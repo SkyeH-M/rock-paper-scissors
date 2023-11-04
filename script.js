@@ -1,4 +1,6 @@
 let options = ["rock", "paper", "scissors"];
+let computerWins = [];
+let playerWins = [];
 
 function getComputerChoice() {
   // get random index value
@@ -11,13 +13,20 @@ function getComputerChoice() {
 function playerChoice() {
   let validatedInput = false;
   while (validatedInput == false) {
-    let playerSelection = window.prompt("Please pick Rock, Paper, or Scissors");
-    // if ()
+    let choice = prompt("Please pick Rock, Paper, or Scissors");
+    if (choice == null) {
+      console.log("Please only enter 'paper', 'rock', or 'scissors'");
+      continue;
+    }
+    let lowerChoice = choice.toLowerCase();
+    if (options.includes(lowerChoice)) {
+      validatedInput = true;
+      return lowerChoice;
+    }
   }
-  return playerSelection;
 }
 
-playerChoice();
+// playerChoice();
 
 function checkWinner(playerSelection, computerSelection) {
   if (playerSelection == computerSelection) {
@@ -34,14 +43,24 @@ function checkWinner(playerSelection, computerSelection) {
 }
 
 function gamePlay(playerSelection, computerSelection) {
-  playerSelection = playerSelection.toLowerCase();
+  //   playerSelection = playerSelection.toLowerCase();
   let result = checkWinner(playerSelection, computerSelection);
   if (result == "Tie") {
+    computerWins++;
+    playerWins++;
     return "It's a Tie!";
   } else if (result == "Player") {
+    playerWins++;
     return `Congratulations! You win, ${playerSelection} beats ${computerSelection}`;
   } else {
+    computerWins++;
     return `Computer wins, ${computerSelection} beats ${playerSelection}. Try again!`;
+  }
+}
+
+function announceWinner(playerWins, computerWins) {
+  if (playerWins > computerWins) {
+    return `Congratulations! You won with ${playerWins} points, while the computer scored ${computerWins}`;
   }
 }
 
@@ -51,7 +70,10 @@ function game() {
     let computerSelection = getComputerChoice();
     console.log(playerSelection, computerSelection);
     console.log(gamePlay(playerSelection, computerSelection));
+    console.log(`Player: ${playerWins}`);
+    console.log(`COmputer: ${computerWins}`);
   }
+  console.log(announceWinner());
 }
 
 let begin = game();
