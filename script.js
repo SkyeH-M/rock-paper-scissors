@@ -60,7 +60,11 @@ function gamePlay(playerSelection, computerSelection) {
 
 function announceWinner(playerWins, computerWins) {
   if (playerWins > computerWins) {
-    return `Congratulations! You won with ${playerWins} points, while the computer scored ${computerWins}`;
+    return `Congratulations! You won with ${playerWins} points, while the computer only scored ${computerWins} points`;
+  } else if (computerWins > playerWins) {
+    return `Sadly the computer won with ${computerWins} points, while you scored ${playerWins} points. Try again!`;
+  } else if (playerWins === computerWins) {
+    return `You and the computer tied at ${computerWins} points.`;
   }
 }
 
@@ -73,7 +77,7 @@ function game() {
     console.log(`Player: ${playerWins}`);
     console.log(`COmputer: ${computerWins}`);
   }
-  console.log(announceWinner());
+  console.log(announceWinner(playerWins, computerWins));
 }
 
 let begin = game();
